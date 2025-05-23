@@ -81,7 +81,7 @@ st.markdown("""
 
 #######################
 # Load data
-df = pd.read_csv('c:/Users/robin/Desktop/Untitled spreadsheet - Sheet1.csv')
+#df = pd.read_csv('c:/Users/robin/Desktop/Untitled spreadsheet - Sheet1.csv')
 df.columns=['DOJ','Form No','NAME','Phone No','PASSED OUT','INVOICE','TOTAL FEE','PAID',' BALANCE',  'P.NUM','STATUS']
 df=df[1:]
 
