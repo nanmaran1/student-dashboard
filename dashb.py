@@ -24,7 +24,7 @@ st.set_page_config(
 alt.themes.enable("dark")
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-url = "https://docs.google.com/spreadsheets/d/1JDy9md2VZPz4JbYtRPJLs81_3jUK47nx6GYQjgU8qNY/edit?usp=sharing"
+url = "https://docs.google.com/spreadsheets/d/1dEQKhTvb9X0g9e2ElEULYajX_JP7x9UfO-Me-sChjuc/edit?usp=sharing"
 
 df = conn.read(spreadsheet=url)
 
