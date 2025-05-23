@@ -8,12 +8,6 @@ import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
 # Create a connection object.
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-url = "https://docs.google.com/spreadsheets/d/1JDy9md2VZPz4JbYtRPJLs81_3jUK47nx6GYQjgU8qNY/edit?usp=sharing"
-
-df = conn.read(spreadsheet=url)
-st.dataframe(df)
 
 
 
@@ -28,6 +22,12 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 
 alt.themes.enable("dark")
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+url = "https://docs.google.com/spreadsheets/d/1JDy9md2VZPz4JbYtRPJLs81_3jUK47nx6GYQjgU8qNY/edit?usp=sharing"
+
+df = conn.read(spreadsheet=url)
+
 
 #######################
 # CSS styling
