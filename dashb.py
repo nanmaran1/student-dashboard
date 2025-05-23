@@ -7,12 +7,6 @@ import streamlit as st
 
 from streamlit_gsheets import GSheetsConnection
 
-# Create a connection object.
-
-
-
-
-
 #######################
 # Page configuration
 st.set_page_config(
@@ -96,7 +90,10 @@ with st.sidebar:
     selected_year = st.selectbox('Enter the Phone Number', year_list)
     df_s = df[df['Phone No'] == selected_year]
 
-    
+if st.button("🔄 Refresh Data"):
+    st.rerun()
+    conn = st.connection("gsheets", type=GSheetsConnection)
+    df = conn.read(spreadsheet=url)
 
 
 #######################
