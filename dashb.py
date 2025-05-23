@@ -1,12 +1,9 @@
-
 import numpy as np  # np mean, np random
 import pandas as pd  # read csv, df manipulation
 import altair as alt
 import plotly.express as px  # interactive charts
 import streamlit as st
-
 from streamlit_gsheets import GSheetsConnection
-
 #######################
 # Page configuration
 st.set_page_config(
@@ -16,14 +13,15 @@ st.set_page_config(
     initial_sidebar_state="expanded")
 
 alt.themes.enable("dark")
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-url = "https://docs.google.com/spreadsheets/d/1dEQKhTvb9X0g9e2ElEULYajX_JP7x9UfO-Me-sChjuc/edit?usp=sharing"
-
-df = conn.read(spreadsheet=url)
-
+#######################
 
 #######################
+#connecting google sheets to streamlit
+url = "https://docs.google.com/spreadsheets/d/1dEQKhTvb9X0g9e2ElEULYajX_JP7x9UfO-Me-sChjuc/edit?usp=sharing"
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read(spreadsheet=url,ttl=0)
+#######################
+
 # CSS styling
 st.markdown("""
 <style>
@@ -72,33 +70,22 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 #######################
-# Load data
-#df = pd.read_csv('c:/Users/robin/Desktop/Untitled spreadsheet - Sheet1.csv')
+#adding column name
+
 df.columns=['DOJ','Form No','NAME','Phone No','PASSED OUT','INVOICE','TOTAL FEE','PAID',' BALANCE',  'P.NUM','STATUS']
 df=df[1:]
-
 
 #######################
 # Sidebar
 with st.sidebar:
     st.title('Student Dashboard')
-    
     year_list = list(df['Phone No'].unique())
-    
     selected_year = st.selectbox('Enter the Phone Number', year_list)
     df_s = df[df['Phone No'] == selected_year]
-
 if st.button("🔄 Refresh Data"):
     st.rerun()
-    conn = st.connection("gsheets", type=GSheetsConnection)
-    df = conn.read(spreadsheet=url)
-
-
 #######################
-# Plots
-
 # Heatmap
 def make_heatmap(input_df, input_y, input_x, input_color, input_color_theme):
     heatmap = alt.Chart(input_df).mark_rect().encode(
@@ -177,10 +164,6 @@ def make_donut(input_response, input_text, input_color):
                       legend=None),
   ).properties(width=130, height=130)
   return plot_bg + plot + text
-
-
-
-
 #######################
 # Dashboard Main Panel
 col = st.columns((1.5, 4.5, 2), gap='medium')
@@ -200,3 +183,5 @@ with col[1]:
 with col[2]:
     st.markdown('#### BALANCE')
     st.info( df_s[' BALANCE'].values[0])
+
+st.dataframe(df)
