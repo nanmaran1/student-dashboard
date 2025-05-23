@@ -1,0 +1,7 @@
+streamlit
+plotly
+pandas
+gspread
+time
+altair
+streamlit_gsheets
